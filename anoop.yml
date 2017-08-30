@@ -1,0 +1,10 @@
+---
+- hosts: localhost
+  tasks:
+    - name: Install apache2 package
+      apt: name=apache2  state=present
+      when: ansible_os_family == "Debain"
+       
+    - name: Install httpd package
+      yum: name=httpd state=latest
+      when: ansible_os_family != "Debain"

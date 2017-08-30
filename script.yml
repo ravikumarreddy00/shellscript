@@ -1,0 +1,8 @@
+---
+- hosts: all
+  tasks:
+  - name: remove packages
+    yum: name={{item}} state=removed
+    with_items:
+      - httpd
+      - vsftpd

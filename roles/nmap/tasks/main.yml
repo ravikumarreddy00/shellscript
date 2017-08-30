@@ -1,0 +1,5 @@
+---
+# tasks file for nmap
+- name: Install nmap package
+  yum: name=nmap state=latest
+  when: ansible_os_family == "RedHat"

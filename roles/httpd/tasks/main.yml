@@ -1,0 +1,33 @@
+---
+ - name: install apache package
+   yum: name=httpd state=present
+   when: ansible_os_family == "RedHat"
+   tags:
+     - httpdtag 
+ - name: install apache2 package
+   yum: name=apache2 state=present
+   when: ansible_os_family == "Ubuntu"
+ 
+ - name: update apache2.conf file
+   lineinfile: path=/etc/apache2/apache2.conf line="ServerName 127.0.0.1"
+   notify: restart apache2
+   when: ansible_os_family == "Ubuntu"
+ 
+ - name: update httpd.conf file
+   template: src=httpd.conf.j2 dest=/etc/httpd/conf/httpd.conf
+   notify: restart httpd
+   when: ansible_os_family == "RedHat"
+  
+ - name: restart apache2
+   service: name=apache2 state=restarted
+   run_once: true
+   when: ansible_os_family == "Ubuntu"
+
+ - name: restart httpd  service 
+   service: name=httpd state=restarted
+   run_once: true
+   when: ansible_os_family == "RedHat"
+ 
+ - include: testserver.yml
+   tags:
+     - testservertag

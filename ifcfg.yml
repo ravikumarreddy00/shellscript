@@ -1,0 +1,8 @@
+---
+- hosts: localhost
+  tasks:
+  - name: configuration
+    lineinfile: path= /etc/sysconfig/network-scripts/ifcg-eth0 line={{ item }}
+    with_items:
+    - ONBOOT=yes
+  

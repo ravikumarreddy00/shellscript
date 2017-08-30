@@ -1,0 +1,6 @@
+---
+- hosts: common
+  vars:
+    - name: variables in playbook
+  roles:    
+    - httpd

@@ -1,0 +1,12 @@
+---
+- hosts: common
+  tasks:  
+    - name: install vsftpd
+      yum: name=vsftpd  state=present
+    - name: start the vsftpd services
+      service: name=vsftpd state=started
+      notify: restart the package
+      run_once: true
+  handlers:
+    - name: restart vsftpd package
+      service: name=vsftpd status=restarted   
